@@ -8,6 +8,7 @@ combine scripts from these projects :
 - https://type76.com/fluid/v2.html
 - https://type76.com/projects/loop/
 
+## specs
 - simple interactive ambient toy (play/pause)
 - mouse on computer, touch for mobile
 - simple centered optional controls and EQ
