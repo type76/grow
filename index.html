@@ -4,7 +4,6 @@
 	<title>baobab</title>
 </head>
 
-<link rel="stylesheet" type="text/css" href="../../css/type1.css">
 <style>
 * {margin:0; padding: 0;}
 body {
@@ -78,11 +77,11 @@ z-index: -1;}
 <button id="rotate">rotate</button>
 </div><!-- hud -->
 
-<script src="../js/three.min.js"></script>
-<script src="../js/OrbitControls.min.js"></script>
-<script src="../js/GLTFLoader.js"></script>
-<script src="../js/Reflector.js"></script>
-<script src="../js/tween.js"></script>
+<script src="js/three.min.js"></script>
+<script src="js/OrbitControls.min.js"></script>
+<script src="js/GLTFLoader.js"></script>
+<script src="js/Reflector.js"></script>
+<script src="js/tween.js"></script>
 
 <script type="text/javascript">
 // vars
@@ -135,7 +134,7 @@ treegroup.add( mzingagroup );
 // log
 var loader = new THREE.BufferGeometryLoader();
 loader.load(
-  'log-geometry.json',
+  'assets/log-geometry.json',
   function ( geometry ) {
     var material = new THREE.MeshLambertMaterial( { color : 0x333333 } );
     var object = new THREE.Mesh( geometry, material );
@@ -150,7 +149,7 @@ loader.load(
 
 // rope
 loader.load(
-  'rope-geometry.json',
+  'assets/rope-geometry.json',
   function ( geometry ) {
     var material = new THREE.MeshBasicMaterial( { color: 0x000000
  } );
@@ -167,7 +166,7 @@ loader.load(
 
 // sky night
 var loader = new THREE.TextureLoader();
-loader.load( 'wgrad.png', function ( texture ) {
+loader.load( 'assets/wgrad.png', function ( texture ) {
   var skygeometry = new THREE.SphereGeometry(501, 32, 32)
   var skymaterial = new THREE.MeshBasicMaterial( { map: texture, side : THREE.BackSide
   ,transparent: true, opacity: 0.8
@@ -251,7 +250,7 @@ scene.add( watersurf );
 var loader = new THREE.GLTFLoader();
 
 // tree
-var filepath = "tt.glb";
+var filepath = "assets/tt.glb";
 loader.load(filepath, function (gltf) {
 
   gltf.scene.traverse(function (node) {
