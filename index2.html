@@ -115,8 +115,8 @@ border-radius: 100%;
 
 <p class="vol"><span>Volume</span>
   <input class="xslider" id="beat" type="range" value="10" min="0" max="100" step="1" oninput="handleVolumeChange(value)" />
-  <!-- <br> -->
-   <!-- <span id="volumeLabel">50</span> -->
+  <br>
+   <span id="volumeLabel">50</span>
 </p>
 
   <div class="controls">
@@ -266,17 +266,17 @@ loader.load( 'assets/wgrad.png', function ( texture ) {
 
 
 //butterfly
-// var loader = new THREE.JSONLoader();
+var loader = new THREE.JSONLoader();
 
-// loader.load( "butterfly2.json", function( geometry, materials ) {
-// var material = new THREE.MeshBasicMaterial( {color: 0xffffff } );
-// mesh = new THREE.Mesh( geometry, material );
-// mesh.position.set(0, -0.5 , 1.4);
-// mesh.scale.set(0.1, 0.1, 0.1);
+loader.load( "assets/butterfly2.json", function( geometry, materials ) {
+var material = new THREE.MeshBasicMaterial( {color: 0xffffff } );
+mesh = new THREE.Mesh( geometry, material );
+mesh.position.set(0, -0.5 , 1.2);
+mesh.scale.set(0.2, 0.2, 0.2);
 
-// mesh.rotation.set(0, 190 , 0);
-// bg.add( mesh );
-// } );
+mesh.rotation.set(0, 190 , 0);
+scene.add( mesh );
+} );
 
 
 
@@ -710,7 +710,7 @@ function startpage() {
 var strt =  new TWEEN.Tween( camera.position ).to( {x:0, y:0.5, z:3}, 2000).easing( TWEEN.Easing.Quadratic.EaseOut).start();
 }
 
-// audioreact
+// audio react
 
 function showeq() {
   var xhud = document.getElementById('xhud');
@@ -800,7 +800,6 @@ function buildAudioGraph() {
 function changeGain(sliderVal,nbFilter) {
   var value = parseFloat(sliderVal);
   filters[nbFilter].gain.value = value;
-  
   // update output labels
   var output = document.querySelector("#gain"+nbFilter);
   output.value = value + " dB";
