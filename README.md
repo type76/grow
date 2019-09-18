@@ -3,10 +3,10 @@
 
 
 combine scripts from these projects :
-https://io76.com/inside/
-https://type76.com/projects/baobab/
-https://type76.com/fluid/v2.html
-https://type76.com/projects/loop/
+- https://io76.com/inside/
+- https://type76.com/projects/baobab/
+- https://type76.com/fluid/v2.html
+- https://type76.com/projects/loop/
 
 - simple interactive ambient toy (play/pause)
 - mouse on computer, touch for mobile
