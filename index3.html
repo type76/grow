@@ -109,7 +109,7 @@ border-radius: 100%;
 
    <div class="lside controls">
     <label>c</label>
-  <input class="xslider" id="carrier" type="range" value="100" min="1" max="2800" step="1" oninput="handleCarrierChange(value)" title="Carrier Frequency" />
+  <input class="xslider" id="carrier" type="range" value="10" min="1" max="2800" step="1" oninput="handleCarrierChange(value)" title="Carrier Frequency" />
   <span id="carrierLabel">100</span>
 </div>
 
@@ -229,7 +229,7 @@ var mediaElement = document.getElementById('player');
 
 //player
 var cntx = new AudioContext();
-var carrier_freq = 100;
+var carrier_freq = 10;
 var beat_freq = 3;
 var merger = cntx.createChannelMerger(2);
 
@@ -597,7 +597,7 @@ function handleBeatChange(val) {
 }
 //
 
-var carrier_freq = 100;
+var carrier_freq = 40;
 var beat_freq = 3;
 var isPlaying = false;
 var left_osc, right_osc;
