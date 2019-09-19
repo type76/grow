@@ -2,221 +2,229 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>AUDIO</title>
-<style>
+  <title>AUDIO</title>
+  <style>
 
-body {margin: 0; padding: 0; background: #222; color: #fff;}
-div audio {
-  display: block;
-  margin-bottom:10px;
-}
+  body {margin: 0; padding: 0; background: #222; color: #fff;}
+  div audio {
+    display: block;
+    margin-bottom:10px;
+  }
 
-#cnv {position: absolute; top: 0; z-index: -1;}
-.eq {
-  margin: 32px;
-  padding:10px;
-  width:300px;
-  text-align:center;
-  font-family: monospace;
-  font-size: 12px;
-}
-#player {
-  text-align: center;
-  display: block;
-  width: 100%;
-  outline: none;
-}
+  #cnv {position: absolute; top: 0; z-index: -1;}
+  .eq {
+    margin: 32px;
+    padding:10px;
+    width:300px;
+    text-align:center;
+    font-family: monospace;
+    font-size: 12px;
+  }
+  #player {
+    text-align: center;
+    display: block;
+    width: 100%;
+    outline: none;
+  }
 
-div.controls {
-  display: block;
-  width: auto;
-  margin: 15px;
-  padding: 5px 0;
-  /*transform: scale(1.8);*/
-}
+  div.controls {
+    display: block;
+    width: auto;
+    margin: 0 15px;
+    padding: 5px 0;
+    /*transform: scale(1.8);*/
+  }
 
-.controls * {
-  font-size: 2em;
-}
+  .controls * {
+    font-size: 2em;
+  }
 
-div.controls:hover {
-  color:#fff;
-  font-weight:bold;
-}
-div.controls label {
-  display: inline-block;
-  text-align: center;
-  width: 50px;
-}
+  div.controls:hover {
+    color:#fff;
+    font-weight:bold;
+  }
+  div.controls label {
+    display: inline-block;
+    text-align: center;
+    width: 50px;
+  }
 
-div.controls label, div.controls input, output {
+  div.controls label, div.controls input, output {
     vertical-align: middle;
     padding: 0;
     margin: 0;
-   font-family: monospace;
-  text-align: left;
-}
+    font-family: monospace;
+    text-align: left;
+  }
 
-div.controls label, div.controls input, 
-.controls span, .controls output {  
-  font-size: 12px;}
+  div.controls label, div.controls input, 
+  .controls span, .controls output {  
+    font-size: 12px;}
 
-#hud {
-position: absolute; z-index: 2;
-top: 60px;
-width: 450px; height: auto;
-transform: translateX(-500px);
-transition: all 0.2s ease;
-}
-#eqbutton {
-  display: block;
-  padding: 5px;
-  background: transparent;
-  font-family: monospace;
-  border:none;
-  outline: none;
-  color: #fff;
-  font-size: 2em;
-  cursor: pointer;
-  position: absolute;
-  top: 12px; 
-  left: 12px;
-}
-#hud.on {transform: translateX(0px);}
-#eqbutton:hover {color: red;}
+    #hud {
+      position: absolute; z-index: 2;
+      top: 60px;
+      width: 450px; height: auto;
+      transform: translateX(-500px);
+      transition: all 0.2s ease;
+    }
+    #eqbutton {
+      display: block;
+      padding: 5px;
+      background: transparent;
+      font-family: monospace;
+      border:none;
+      outline: none;
+      color: #fff;
+      font-size: 2em;
+      cursor: pointer;
+      position: absolute;
+      top: 12px; 
+      left: 12px;
+    }
+    #hud.on {transform: translateX(0px);}
+    #eqbutton:hover {color: red;}
 
-#interface {display: block; position: absolute; bottom: 0; width: 100%;}
-#interface .switch, #interface .switch input {
-display: block;
-width: 80px; height: 80px;
-background: red;
-margin: 30px auto;
-border-radius: 100%;
-}
-#interface .switch input {display: none;}
-#interface.on .switch {background: #fff;}
-</style>
+    #interface {
+    position: absolute;
+    top:  50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    }
+    #interface .switch {
+      display: block;
+      width: 80px; height: 80px;
+      background: red;
+      margin: 0px auto;
+      border-radius: 100%;
+      opacity: 0.3;
+      cursor: pointer;
+    }
+    #interface .switch:hover, #interface .switch:active, #interface.on .switch:hover {opacity: 0.5;}
+    #interface .switch input {display: none;}
+    #interface.on .switch {background: #fff; opacity: 0.05;}
+  </style>
 </head>
 <body>
-<div class="eq">
-  <button id="eqbutton" class="on" onclick="showeq()" title="show/hide controls">SHOW</button>
+  <div class="eq">
+    <button id="eqbutton" class="on" onclick="showeq()" title="show/hide controls">SHOW</button>
 
-<div id="hud">
-  <audio id="player" controls crossorigin="anonymous" loop onplay="playme()" onpause="stopme()">
-  <source src="effect3.mp3">
-  Your browser does not support the audio tag.
-</audio>
+    <div id="hud">
+      <audio id="player" controls crossorigin="anonymous" loop onplay="playme()" onpause="stopme()">
+        <source src="effect3.mp3">
+          Your browser does not support the audio tag.
+        </audio>
 
-   <div class="lside controls">
-    <label>c</label>
-  <input class="xslider" id="carrier" type="range" value="10" min="1" max="2800" step="1" oninput="handleCarrierChange(value)" title="Carrier Frequency" />
-  <span id="carrierLabel">100</span>
-</div>
+        <div class="lside controls">
+          <label>c</label>
+          <input class="xslider" id="carrier" type="range" value="10" min="1" max="2800" step="1" oninput="handleCarrierChange(value)" title="Carrier Frequency" />
+          <span id="carrierLabel">100</span>
+        </div>
 
-<div class="rside controls">
-    <label>b</label>
-  <input class="xslider" id="beat" type="range" value="3" min="0" max="50" step="1" oninput="handleBeatChange(value)" title="Binaural Beat Frequency" />
-  <span id="beatLabel">3</span>
-</div>
+        <div class="rside controls">
+          <label>b</label>
+          <input class="xslider" id="beat" type="range" value="3" min="0" max="50" step="1" oninput="handleBeatChange(value)" title="Binaural Beat Frequency" />
+          <span id="beatLabel">3</span>
+        </div>
 
-<div class="vol controls">
-  <span>vol</span>
-  <input class="xslider" id="beat" type="range" value="10" min="0" max="100" step="1" oninput="handleVolumeChange(value)" />
-   <span id="volumeLabel">50</span>
-</div>
+        <div class="vol controls">
+          <span>vol</span>
+          <input class="xslider" id="beat" type="range" value="10" min="0" max="100" step="1" oninput="handleVolumeChange(value)" />
+          <span id="volumeLabel">50</span>
+        </div>
 
-<hr>
+        <hr>
 
-  <div class="controls">
-    <label>60Hz</label>
-    <input type="range" value="0" step="1" min="-30" max="30" oninput="changeGain(this.value, 0);"></input>
-  <output id="gain0">0 dB</output>
-  </div>
-  <div class="controls">
-    <label>170Hz</label>
-    <input type="range" value="0" step="1" min="-30" max="30" oninput="changeGain(this.value, 1);"></input>
-<output id="gain1">0 dB</output>
-  </div>
-  <div class="controls">
-    <label>350Hz</label>
-    <input type="range" value="0" step="1" min="-30" max="30" oninput="changeGain(this.value, 2);"></input>
-<output id="gain2">0 dB</output>
-  </div>
-  <div class="controls">
-    <label>1000Hz</label>
-    <input type="range" value="0" step="1" min="-30" max="30" oninput="changeGain(this.value, 3);"></input>
-<output id="gain3">0 dB</output>
-  </div>
-  <div class="controls">
-    <label>3500Hz</label>
-    <input type="range" value="0" step="1" min="-30" max="30" oninput="changeGain(this.value, 4);"></input>
-<output id="gain4">0 dB</output>
-  </div>
-  <div class="controls">
-    <label>10000Hz</label>
-    <input type="range" value="0" step="1" min="-30" max="30" oninput="changeGain(this.value, 5);"></input>
-<output id="gain5">0 dB</output>
-  </div>
-  <div class="controls">
-    <label>Master volume</label>
-    <input type="range" value="10" step="0.1" min="0" max="10" oninput="changeMasterGain(this.value);"></input>
-<output id="masterGainOutput">10</output>
-  </div>
-  <div class="controls">
-    <label>Balance</label>
-    <input type="range" value="0" step="0.1" min="-1" max="1" oninput="changeBalance(this.value);"></input>
-<output id="balanceOutput">0</output>
-  </div>
+        <div class="controls">
+          <label>60Hz</label>
+          <input type="range" value="0" step="1" min="-30" max="30" oninput="changeGain(this.value, 0);"></input>
+          <output id="gain0">0 dB</output>
+        </div>
+        <div class="controls">
+          <label>170Hz</label>
+          <input type="range" value="0" step="1" min="-30" max="30" oninput="changeGain(this.value, 1);"></input>
+          <output id="gain1">0 dB</output>
+        </div>
+        <div class="controls">
+          <label>350Hz</label>
+          <input type="range" value="0" step="1" min="-30" max="30" oninput="changeGain(this.value, 2);"></input>
+          <output id="gain2">0 dB</output>
+        </div>
+        <div class="controls">
+          <label>1000Hz</label>
+          <input type="range" value="0" step="1" min="-30" max="30" oninput="changeGain(this.value, 3);"></input>
+          <output id="gain3">0 dB</output>
+        </div>
+        <div class="controls">
+          <label>3500Hz</label>
+          <input type="range" value="0" step="1" min="-30" max="30" oninput="changeGain(this.value, 4);"></input>
+          <output id="gain4">0 dB</output>
+        </div>
+        <div class="controls">
+          <label>10000Hz</label>
+          <input type="range" value="0" step="1" min="-30" max="30" oninput="changeGain(this.value, 5);"></input>
+          <output id="gain5">0 dB</output>
+        </div>
+        <div class="controls">
+          <label>Master volume</label>
+          <input type="range" value="10" step="0.1" min="0" max="10" oninput="changeMasterGain(this.value);"></input>
+          <output id="masterGainOutput">10</output>
+        </div>
+        <div class="controls">
+          <label>Balance</label>
+          <input type="range" value="0" step="0.1" min="-1" max="1" oninput="changeBalance(this.value);"></input>
+          <output id="balanceOutput">0</output>
+        </div>
 
-</div>
-
-
-<div id="interface">
-<label class="switch">
-  <input id="switchValue" type="checkbox" checked oninput="invert()">
-  <span class="slider round"></span>
-</label>
-
-  </div><!-- interface -->
+      </div>
 
 
-<script src="js/three.min.js"></script>
-<script src="js/OrbitControls.min.js"></script>
-<script src="js/GLTFLoader.js"></script>
+      <div id="interface">
+        <label class="switch">
+          <input id="switchValue" type="checkbox" checked oninput="invert()">
+          <span class="slider round"></span>
+        </label>
+
+      </div><!-- interface -->
 
 
-<script>
-
-function showeq() {
-  var hud = document.getElementById('hud');
-  hud.classList.toggle('on');
-  if (hud.classList != "on") {
-eqbutton.textContent = 'SHOW';
-  } else {
-eqbutton.textContent = 'HIDE';
-  }
-}
+      <script src="js/three.min.js"></script>
+      <script src="js/OrbitControls.min.js"></script>
+      <script src="js/GLTFLoader.js"></script>
+      <script src="js/OrbitControls.min.js"></script>
 
 
+      <script>
+
+      function showeq() {
+        var hud = document.getElementById('hud');
+        hud.classList.toggle('on');
+        if (hud.classList != "on") {
+          eqbutton.textContent = 'SHOW';
+        } else {
+          eqbutton.textContent = 'HIDE';
+        }
+      }
 
 
-//
-var playing = false;
 
+
+// play/pause functions
 function playme() {
   playing = true;
   mediaElement.play();
   requestAnimationFrame(visualize2);
   if (audioContext) {return}
-  audioContext= new audioCtx();
+    audioContext= new audioCtx();
   buildAudioGraph();
 }
 
 function stopme() {
-playing = false;
-mediaElement.pause();
+  playing = false;
+  mediaElement.pause();
 }
 
+// EQ vars
 var audioCtx = window.AudioContext || window.webkitAudioContext;
 var audioContext, canvasContext;
 
@@ -227,83 +235,87 @@ var dataArray, bufferLength;
 var masterGain, stereoPanner;
 var mediaElement = document.getElementById('player');
 
-//player
+// audio player vars
 var cntx = new AudioContext();
-var carrier_freq = 10;
+var carrier_freq = 40;
 var beat_freq = 3;
 var merger = cntx.createChannelMerger(2);
+var playing = false;
+var left_osc, right_osc;
+var volume = 0.05;
 
 
 function buildAudioGraph() {
   var sourceNode =   audioContext.createMediaElementSource(mediaElement);
-  
-  // Create an analyser node
-  analyser = audioContext.createAnalyser();
-  analyser.fftSize = 256;
-  bufferLength = analyser.frequencyBinCount;
-  dataArray = new Uint8Array(bufferLength);
-  
-  // create the equalizer. It's a set of biquad Filters
-    // Set filters
-    [60, 170, 350, 1000, 3500, 10000].forEach(function(freq, i) {
-      var eq = audioContext.createBiquadFilter();
-      eq.frequency.value = freq;
-      eq.type = "peaking";
-      eq.gain.value = 0;
-      filters.push(eq);
-    });
 
-   // Connect filters
-   sourceNode.connect(filters[0]);
-   for(var i = 0; i < filters.length - 1; i++) {
-      filters[i].connect(filters[i+1]);
-    }
-  
-    // Master volume
-  masterGain = audioContext.createGain();
-  masterGain.value = 1;
- 
-   // last filter
-   filters[filters.length - 1].connect(masterGain);
-  
-  // stereo balancing
-  stereoPanner = audioContext.createStereoPanner();
-  // master volume output to the panner
-  masterGain.connect(stereoPanner);
-  
-  // stereo panner to analyser
-  stereoPanner.connect(analyser);  
-  analyser.connect(audioContext.destination);
+// Create an analyser node
+analyser = audioContext.createAnalyser();
+analyser.fftSize = 256;
+bufferLength = analyser.frequencyBinCount;
+dataArray = new Uint8Array(bufferLength);
+
+// create the equalizer
+// Set filters
+[60, 170, 350, 1000, 3500, 10000].forEach(function(freq, i) {
+  var eq = audioContext.createBiquadFilter();
+  eq.frequency.value = freq;
+  eq.type = "peaking";
+  eq.gain.value = 0;
+  filters.push(eq);
+});
+
+// connect filters
+sourceNode.connect(filters[0]);
+for(var i = 0; i < filters.length - 1; i++) {
+  filters[i].connect(filters[i+1]);
+}
+
+// master volume
+masterGain = audioContext.createGain();
+masterGain.value = 1;
+
+// last filter
+filters[filters.length - 1].connect(masterGain);
+
+// stereo balancing
+stereoPanner = audioContext.createStereoPanner();
+// master volume output to the panner
+masterGain.connect(stereoPanner);
+
+// stereo panner to analyser
+stereoPanner.connect(analyser);  
+analyser.connect(audioContext.destination);
 }
 
 
-
+// main change EQ slider func
 function changeGain(sliderVal,nbFilter) {
   var value = parseFloat(sliderVal);
   filters[nbFilter].gain.value = value;
-  
-  // update output labels
-  var output = document.querySelector("#gain"+nbFilter);
-  output.value = value + " dB";
-}
 
+// update output labels
+var output = document.querySelector("#gain"+nbFilter);
+output.value = value + " dB";
+}
+// EQ volume
 function changeMasterGain(sliderVal) {
   var value = parseFloat(sliderVal);
   masterGain.gain.value =  value/10;
-  
-   // update output labels
-  var output = document.querySelector("#masterGainOutput");
-  output.value = value;
+
+// update output labels
+var output = document.querySelector("#masterGainOutput");
+output.value = value;
 }
 
+// EQ balance
 function changeBalance(sliderVal) {
-  // between -1 and +1
-  var value = parseFloat(sliderVal);
-  
+// between -1 and +1
+var value = parseFloat(sliderVal);
+
 stereoPanner.pan.value = value;
-   // update output labels
-  var output = document.querySelector("#balanceOutput");
-  output.value = value;
+// update output labels
+var output = document.querySelector("#balanceOutput");
+output.value = value;
 }
 
 
@@ -315,12 +327,14 @@ function onWindowResize() {
   renderer.setSize( window.innerWidth, window.innerHeight );
 }
 
+// three.js vars
 var scene = new THREE.Scene();
 var camera = new THREE.PerspectiveCamera( 75, window.innerWidth/window.innerHeight, 0.1, 1000 );
 
-///
+// groups
 scenegroup = new THREE.Group();
 scene.add( scenegroup );
+camera.lookAt(scenegroup);
 
 gridgroup = new THREE.Group();
 scene.add( gridgroup );
@@ -329,33 +343,43 @@ cursor = new THREE.Group();
 scene.add( cursor );
 
 
-      renderer = new THREE.WebGLRenderer( {
-        antialias: true,
-        alpha: true,
-        } );  
-      renderer.setSize( window.innerWidth, window.innerHeight );
-      renderer.domElement.id = 'cnv';
-      document.body.appendChild( renderer.domElement );
+// render
+renderer = new THREE.WebGLRenderer( {
+  antialias: true,
+  alpha: true,
+} );  
+renderer.setSize( window.innerWidth, window.innerHeight );
+renderer.domElement.id = 'cnv';
+document.body.appendChild( renderer.domElement );
 
-      // var pgeometry = new THREE.BoxGeometry( 1, 1, 1 );
-      var pgeometry = new THREE.CylinderBufferGeometry( 0.5, 0.5, 0.01, 32 );
+// controls
+var controls = new THREE.OrbitControls(camera, renderer.domElement);
+controls.maxDistance = 400;
+controls.minDistance = 1;
+controls.maxPolarAngle = Math.PI * 0.50;
+controls.enablePan = false;
+camera.position.z = 4;
 
-      var material = new THREE.MeshBasicMaterial( {
-       color: 0xffffff
-        , transparent: true, opacity: 0.1
-         } );
-      var cube = new THREE.Mesh( pgeometry, material );
-      scenegroup.add( cube );
+
+// var pgeometry = new THREE.BoxGeometry( 1, 1, 1 );
+var pgeometry = new THREE.CylinderBufferGeometry( 0.5, 0.5, 0.01, 32 );
+
+var material = new THREE.MeshBasicMaterial( {
+  color: 0xffffff
+  , transparent: true, opacity: 0.1
+} );
+var cube = new THREE.Mesh( pgeometry, material );
+scenegroup.add( cube );
 
 //
-      // var rmaterial = new THREE.MeshBasicMaterial( { color: 0xff0000, transparent: true, opacity: 0.2 } );
-      // var cubered = new THREE.Mesh( pgeometry, rmaterial );
-      // // cubered.position.y = 0.2;
-      // cubered.scale.set(1.2,1.2,1.2)
-      // scenegroup.add( cubered );
+// var rmaterial = new THREE.MeshBasicMaterial( { color: 0xff0000, transparent: true, opacity: 0.2 } );
+// var cubered = new THREE.Mesh( pgeometry, rmaterial );
+// // cubered.position.y = 0.2;
+// cubered.scale.set(1.2,1.2,1.2)
+// scenegroup.add( cubered );
 
 
-      camera.position.z = 1;
+camera.position.z = 1;
 
 
 //
@@ -382,7 +406,7 @@ scene.add( cursor );
 // }); // dude gltf loader
 var geometry = new THREE.PlaneBufferGeometry( 2000, 2000, 1 );
 var material = new THREE.MeshBasicMaterial( {color: 0x000000
-  // , transparent : true, opacity : 0.1
+// , transparent : true, opacity : 0.1
 } );
 road = new THREE.Mesh( geometry, material );
 road.rotation.set(-Math.PI/2,0,0);
@@ -442,36 +466,38 @@ for (let i = 0; i < n; i++) {
 geometry.setIndex(indexPairs);
 
 
-let linematerial = new THREE.MeshBasicMaterial( { color: 0x666666, transparent: true, opacity: 0.2 } );
+let linematerial = new THREE.MeshBasicMaterial( { color: 0x666666
+  , transparent: true, opacity: 0.5
+ } );
 
 
 let lines = new THREE.LineSegments(geometry, linematerial);
-lines.scale.set(1000,1000,1000);
+lines.scale.set(5000,5000,5000);
 gridgroup.add(lines);
 
 } //lines
 
 // disc
 var curve = new THREE.EllipseCurve(
-  0,  0,            // ax, aY
-  18, 18,           // xRadius, yRadius
-  0,  2 * Math.PI,  // aStartAngle, aEndAngle
-  false,            // aClockwise
-  0                 // aRotation
+0,  0,            // ax, aY
+18, 18,           // xRadius, yRadius
+0,  2 * Math.PI,  // aStartAngle, aEndAngle
+false,            // aClockwise
+0                 // aRotation
 );
 
 var points = curve.getPoints( 60 );
 var dgeometry = new THREE.BufferGeometry().setFromPoints( points );
 var dmaterial = new THREE.LineBasicMaterial( { color : 0x666666
- } );
+} );
 
 var seldisc = new THREE.Line( dgeometry, dmaterial );
 scene.add(seldisc);
 //
-// var bullseye = new THREE.Line( dgeometry, dmaterial );
-// bullseye.scale.set(0.1,0.1,0.1);
-// bullseye.rotation.x = Math.PI/2;
-// scenegroup.add(bullseye);
+var bullseye = new THREE.Line( dgeometry, dmaterial );
+bullseye.scale.set(0.1,0.1,0.1);
+bullseye.rotation.x = Math.PI/2;
+scenegroup.add(bullseye);
 //
 var nxtdisc = new THREE.Line( dgeometry, dmaterial );
 nxtdisc.scale.set(2,2,2);
@@ -487,7 +513,7 @@ function visualize2() {
   if (playing) {
     analyser.getByteFrequencyData(dataArray);
     var nbFreq = dataArray.length;
-  
+
 
 //
 nxtdisc.scale.x = nxtdisc.scale.y = 2+0.1*dataArray[Math.round((20 * nbFreq) / 128)];
@@ -505,7 +531,7 @@ var xcos = 1+0.1*dataArray[Math.round((10 * nbFreq) / 128)];
 biggus.scale.set(xcos,xcos,xcos);
 
 // cam rotate
-camera.position.z = 1+player.currentTime/2;
+// camera.position.z = 1+player.currentTime/2;
 // camera.position.y = 1+player.currentTime/40;
 
 // scene rotate
@@ -514,11 +540,11 @@ scenegroup.rotation.y += 0.001;
 scenegroup.rotation.z += 0.001;
 
 // heartgroup.rotation.y += 0.001;
-  } //ifplaying
+} //ifplaying
 
-  renderer.render( scene, camera );
-  //    
-  requestAnimationFrame(visualize2);
+renderer.render( scene, camera );
+//    
+requestAnimationFrame(visualize2);
 }
 
 
@@ -526,53 +552,53 @@ scenegroup.rotation.z += 0.001;
 // button
 function invert() {
 // switchleaves();
- document.getElementById("interface").classList.toggle('on');
-  if (document.getElementById("interface").classList != "on") {
-    // document.body.classList = '';
-  // play media
-  stopme();
+document.getElementById("interface").classList.toggle('on');
+if (document.getElementById("interface").classList != "on") {
+// document.body.classList = '';
+// play media
+stopme();
 
-  right_osc.stop();
+right_osc.stop();
 
-  setTimeout(function () {
-      left_osc.stop();
-  }, 50);
+setTimeout(function () {
+  left_osc.stop();
+}, 50);
 
-  setTimeout(function () {
-      isPlaying = false;
-  }, 100);
+setTimeout(function () {
+  playing = false;
+}, 100);
 // light.intensity = 0.8;
-  } else {
+} else {
 
 // light.intensity = 2;
-  // document.body.classList = 'dark';
-  left_osc = cntx.createOscillator();
-  right_osc = cntx.createOscillator();
-  setFreqs();
-  right_osc.connect(merger, 0, 0);
-  left_osc.connect(merger, 0, 1);
-  left_osc.start();
+// document.body.classList = 'dark';
+left_osc = cntx.createOscillator();
+right_osc = cntx.createOscillator();
+setFreqs();
+right_osc.connect(merger, 0, 0);
+left_osc.connect(merger, 0, 1);
+left_osc.start();
 
 // stop media
 playme();
 
-  setTimeout(function () {
-      right_osc.start();
-  }, 50);
+setTimeout(function () {
+  right_osc.start();
+}, 50);
 
-  setTimeout(function () {
-      isPlaying = true;
-  }, 100);
-      }
+setTimeout(function () {
+  playing = true;
+}, 100);
+}
 
-  }
+}
 
 
 function setFreqs() {
-   if (typeof right_osc != "undefined") {
-     right_osc.frequency.value = carrier_freq;
-     left_osc.frequency.value = carrier_freq + beat_freq;
-   }
+  if (typeof right_osc != "undefined") {
+    right_osc.frequency.value = carrier_freq;
+    left_osc.frequency.value = carrier_freq + beat_freq;
+  }
 }
 
 
@@ -595,13 +621,9 @@ function handleBeatChange(val) {
   setFreqs();
   element.innerHTML = 1+beat_freq;
 }
-//
 
-var carrier_freq = 40;
-var beat_freq = 3;
-var isPlaying = false;
-var left_osc, right_osc;
-var volume = 0.05;
+
+//
 
 var AudioContext = window.AudioContext || window.webkitAudioContext;
 
@@ -616,45 +638,45 @@ merger.connect(volumeNode);
 volumeNode.connect(cntx.destination);
 
 function toggleSound() {
-if (isPlaying) {
-      bg = false;
-  document.body.classList = '';
-  right_osc.stop();
+  if (playing) {
+    bg = false;
+    document.body.classList = '';
+    right_osc.stop();
 
-  setTimeout(function () {
+    setTimeout(function () {
       left_osc.stop();
-  }, 50);
+    }, 50);
 
-  setTimeout(function () {
-      isPlaying = false;
-  }, 100);
+    setTimeout(function () {
+      playing = false;
+    }, 100);
 
-    } else {
-  document.body.classList = 'on';
-  left_osc = cntx.createOscillator();
-  right_osc = cntx.createOscillator();
-  setFreqs();
-  right_osc.connect(merger, 0, 0);
-  left_osc.connect(merger, 0, 1);
-  left_osc.start();
+  } else {
+    document.body.classList = 'on';
+    left_osc = cntx.createOscillator();
+    right_osc = cntx.createOscillator();
+    setFreqs();
+    right_osc.connect(merger, 0, 0);
+    left_osc.connect(merger, 0, 1);
+    left_osc.start();
 
-  setTimeout(function () {
+    setTimeout(function () {
       right_osc.start();
-  }, 50);
+    }, 50);
 
-  setTimeout(function () {
-      isPlaying = true;
+    setTimeout(function () {
+      playing = true;
       bg = true;
-  }, 100);
+    }, 100);
 
-    }// if else
+}// if else
 }// func
 
 function setFreqs() {
-   if (typeof right_osc != "undefined") {
-     right_osc.frequency.value = carrier_freq;
-     left_osc.frequency.value = carrier_freq + beat_freq;
-   }
+  if (typeof right_osc != "undefined") {
+    right_osc.frequency.value = carrier_freq;
+    left_osc.frequency.value = carrier_freq + beat_freq;
+  }
 }
 
 function handleVolumeChange(val) {
@@ -674,6 +696,15 @@ function handleBeatChange(val) {
   beat_freq = Number(val);
   setFreqs();
 }
+
+// space bar event
+document.body.onkeyup = function(e){
+  if(e.keyCode == 32){
+invert();
+  }
+}
+
+
 
 </script>
 </body>
