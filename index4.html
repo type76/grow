@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -116,15 +115,52 @@
 .lside, .rside {
  position: absolute;
  bottom: 38px; 
+ width: 100%;
 }
+
 .lside {left: 50px; margin-left: 100px;}
 .rside {right: 50px; margin-right: 100px;}
 
 .vol {display: block; 
-  transform: rotateZ(90deg) translateX(64px); 
-  transform-origin: center center;
-}
+  transform: rotateZ(90deg) translateX(100px); 
+  transform-origin: center center;}
 .vol .xslider {  cursor: pointer;}
+
+#interface.on .xslider {
+opacity: 1;
+visibility: visible;
+}
+
+.xslider {
+  -webkit-appearance: none;
+  width: 100%;
+  height: 2px;
+  background: rgba(255,255,255,0.2);
+  outline: none;
+  opacity: 0;
+  visibility: hidden;
+  transition:all 0.2s ease-in-out;
+}
+
+.xslider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 25px;
+  height: 25px;
+  border-radius: 50%; 
+  background: #fff;
+  cursor: pointer;
+}
+
+.xslider::-moz-range-thumb {
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  background: #fff;
+  cursor: pointer;
+}
+
+
   </style>
 </head>
 <body>
@@ -200,7 +236,7 @@
 
 
       <div id="interface">
-        <label class="switch">
+        <label class="switch" >
           <input id="switchValue" type="checkbox" checked oninput="invert()">
         </label>
 
